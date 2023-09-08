@@ -1,7 +1,7 @@
 {
 	"dataVersion":{
-		"counter":2,
-		"timestamp":1646128095733
+		"counter":4,
+		"timestamp":1694066813989
 	},
 	"topicConfigTable":{
 		"%RETRY%lsqGroup":{
@@ -57,6 +57,24 @@
 			"topicName":"TBW102",
 			"topicSysFlag":0,
 			"writeQueueNums":8
+		},
+		"test_order_message_topic":{
+			"order":false,
+			"perm":6,
+			"readQueueNums":4,
+			"topicFilterType":"SINGLE_TAG",
+			"topicName":"test_order_message_topic",
+			"topicSysFlag":0,
+			"writeQueueNums":4
+		},
+		"lsqTopic1":{
+			"order":false,
+			"perm":6,
+			"readQueueNums":4,
+			"topicFilterType":"SINGLE_TAG",
+			"topicName":"lsqTopic1",
+			"topicSysFlag":0,
+			"writeQueueNums":4
 		},
 		"BenchmarkTest":{
 			"order":false,

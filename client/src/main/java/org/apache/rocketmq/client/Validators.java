@@ -47,6 +47,8 @@ public class Validators {
     }
 
     /**
+     * 校验group name 仅可以 英文 数字 _- % 组成
+     * 长度不能超过255
      * Validate group
      */
     public static void checkGroup(String group) throws MQClientException {

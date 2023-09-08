@@ -16,8 +16,10 @@
  */
 package org.apache.rocketmq.example.ordermessage;
 
+
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -32,30 +34,28 @@ import org.apache.rocketmq.remoting.exception.RemotingException;
 public class Producer {
     public static void main(String[] args) throws UnsupportedEncodingException {
         try {
-            MQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
+            DefaultMQProducer producer = new DefaultMQProducer("lsqGroup");
+            producer.setNamesrvAddr("127.0.0.1:9876");
             producer.start();
 
-            String[] tags = new String[] {"TagA", "TagB", "TagC", "TagD", "TagE"};
-            for (int i = 0; i < 100; i++) {
-                int orderId = i % 10;
-                Message msg =
-                    new Message("TopicTestjjj", tags[i % tags.length], "KEY" + i,
-                        ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
-                SendResult sendResult = producer.send(msg, new MessageQueueSelector() {
-                    @Override
-                    public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
-                        Integer id = (Integer) arg;
-                        int index = id % mqs.size();
-                        return mqs.get(index);
-                    }
-                }, orderId);
+            int orderId = 1000;
+            Message msg = new Message("test_order_message_topic",
+                    ("Hello RocketMQ " + orderId).getBytes(RemotingHelper.DEFAULT_CHARSET));
+            SendResult sendResult = producer.send(msg, new MessageQueueSelector() {
+                @Override
+                public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
+                    Integer id = (Integer) arg;
+                    int index = id % mqs.size();
+                    return mqs.get(index);
+                }
+            }, orderId);
 
-                System.out.printf("%s%n", sendResult);
-            }
+            System.out.printf("%s%n", sendResult);
 
             producer.shutdown();
         } catch (MQClientException | RemotingException | MQBrokerException | InterruptedException e) {
             e.printStackTrace();
         }
     }
+
 }

@@ -16,6 +16,7 @@
  */
 package org.apache.rocketmq.example.quickstart;
 
+
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -40,20 +41,18 @@ public class Producer {
         producer.setNamesrvAddr("127.0.0.1:9876");
         producer.start();
 
-        for (int i = 0; i < 2; i++) {
-            try {
-                Message msg = new Message("lsqTopic1", ("H111111ello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET)
-                );
-                msg.putUserProperty("mylsq", "LSQ");
-                msg.putUserProperty("test", "11111");
-                SendResult sendResult = producer.send(msg);
+        try {
+            Message msg = new Message("test_order_message_topic_111",
+                    ("H111111ello RocketMQ ").getBytes(RemotingHelper.DEFAULT_CHARSET)
+            );
+            msg.putUserProperty("mylsq", "LSQ");
+            msg.putUserProperty("test", "11111");
+            SendResult sendResult = producer.send(msg);
 
-
-                System.out.printf("%s%n", sendResult);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Thread.sleep(1000);
-            }
+            System.out.printf("%s%n", sendResult);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Thread.sleep(1000);
         }
         //  producer.shutdown();
     }

@@ -147,11 +147,13 @@ public class DefaultMQPushConsumer extends ClientConfig implements MQPushConsume
 
     /**
      * Minimum consumer thread number
+     * 最小消费线程数量
      */
     private int consumeThreadMin = 20;
 
     /**
      * Max consumer thread number
+     * 最大消费线程数量
      */
     private int consumeThreadMax = 64;
 
@@ -162,6 +164,7 @@ public class DefaultMQPushConsumer extends ClientConfig implements MQPushConsume
 
     /**
      * Concurrently max span offset.it has no effect on sequential consumption
+     * 并发offset 最大跨度
      */
     private int consumeConcurrentlyMaxSpan = 2000;
 
@@ -360,6 +363,10 @@ public class DefaultMQPushConsumer extends ClientConfig implements MQPushConsume
         return consumeFromWhere;
     }
 
+    /**
+     * 设置消费者开始消费位置，默认 CONSUME_FROM_LAST_OFFSET 从最新的开始消费
+     * @param consumeFromWhere
+     */
     public void setConsumeFromWhere(ConsumeFromWhere consumeFromWhere) {
         this.consumeFromWhere = consumeFromWhere;
     }
@@ -513,7 +520,7 @@ public class DefaultMQPushConsumer extends ClientConfig implements MQPushConsume
 
     /**
      * This method gets internal infrastructure readily to serve. Instances must call this method after configuration.
-     *
+     *消费者启动入口
      * @throws MQClientException if there is any client error.
      */
     @Override
@@ -539,7 +546,7 @@ public class DefaultMQPushConsumer extends ClientConfig implements MQPushConsume
 
     /**
      * Register a callback to execute on message arrival for concurrent consuming.
-     *
+     * 消费消息监听消费
      * @param messageListener message handling callback.
      */
     @Override
@@ -561,10 +568,12 @@ public class DefaultMQPushConsumer extends ClientConfig implements MQPushConsume
 
     /**
      * Subscribe a topic to consuming subscription.
-     *
-     * @param topic topic to subscribe.
+     * 订阅topic
+     * @param topic topic to subscribe. topic
      * @param subExpression subscription expression.it only support or operation such as "tag1 || tag2 || tag3" <br>
+     *                      过滤消费的tag
      * if null or * expression,meaning subscribe all
+     *                      * 和 null 就是不过滤
      * @throws MQClientException if there is any client error.
      */
     @Override

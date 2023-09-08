@@ -2,7 +2,11 @@
 	"offsetTable":{
 		"%RETRY%lsqGroup@lsqGroup":{0:0
 		},
+		"test_order_message_topic@lsqGroup":{0:0,1:0,2:0,3:0
+		},
 		"lsqTopic1@lsqGroup":{0:8,1:15,2:14,3:12
+		},
+		"test_order_message_topic_111@lsqGroup":{0:0,1:0,2:0,3:0
 		}
 	}
 }
